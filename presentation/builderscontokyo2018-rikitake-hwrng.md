@@ -232,9 +232,9 @@ FTDI bitbang I/O controls the noise amplifier
 
 # How much randomness is enough?
 
-- USD <100 generator: ~100kbytes/sec or more, more than sufficient for an active server
+- USD <100 generator: > ~10kbytes/sec, more than sufficient for an active server
 - If you generate *a lot of* keys/passwords, consider dedicated generator of Mbps or Gbps class (they exist but expensive)
-- ハードウェア生成器があれば~100kバイト/秒（通常の運用には十分）
+- ハードウェア生成器があれば~10kバイト/秒以上（通常の運用には十分）
 - 本気で大量に鍵やパスワードを生成するなら専用の物理乱数生成器を導入すべし
 
 
