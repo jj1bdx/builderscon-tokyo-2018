@@ -23,12 +23,8 @@ Kyoseikan, Keio University
 Yokohama City, Kanagawa, Japan
 @jj1bdx
 
----
-
-# [fit] Give the feedback via the feedback form
-# [fit] Use the feedback form QR code on your name card
-# [fit] フィードバックをおねがいします
-# [fit] ネームカードのQRコードを使ってください
+Copyright ©2018 Kenji Rikitake.
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
 ---
 
@@ -41,6 +37,21 @@ Yokohama City, Kanagawa, Japan
 # [fit] What is randomness?
 # [fit] ... unpredictability
 # [fit] ランダムネスとは予測不能性のことです
+
+---
+
+# [fit] Randomness is essential for
+# [fit] secure operation
+# [fit] ランダムネスは安全な運用に不可欠です
+
+---
+
+# When randomness needed
+# ランダムネスが必要な時
+
+- Password/key generation / パスワードや鍵の生成
+- Timing obfuscation / 処理時間を隠す
+- Using multiple resources equally but unpredictably / 複数の資源を同じように、しかし予測されないように使いたい
 
 ---
 
@@ -107,7 +118,26 @@ Yokohama City, Kanagawa, Japan
 
 ---
 
-# [fit] We need additional randomness
+![original, fit](os-prng-flow-en.png)
+
+# Randomness processing flow
+
+` `
+
+---
+
+# [fit] Little randomness available in a system
+# [fit] システムの中からはランダムネスは少ししか得られない
+## [fit] A result: only ~0.62bit/sec
+
+- A dormant Linux server without attached keyboard
+- `/proc/sys/kernel/random/entropy_avail`
+- Bits of entropy (= randomness) in the system
+- 258 bits / 415.6 seconds (~7 minutes)
+
+---
+
+# [fit] Additional randomness needed
 # [fit] 追加のランダムネスが必要
 
 ---
@@ -119,15 +149,6 @@ Yokohama City, Kanagawa, Japan
 # [fit] セキュリティは予測不能性に依存している
 # [fit] 安全な処理はランダムネスを消費する
 # [fit] 使えるランダムネスは有限
-
----
-
-# When randomness needed
-# ランダムネスが必要な時
-
-- Password/key generation / パスワードや鍵の生成
-- Timing obfuscation / 処理時間を隠す
-- Using multiple resources equally but unpredictably / 複数の資源を同じように、しかし予測されないように使いたい
 
 ---
 
@@ -173,7 +194,7 @@ Generating ~10kbytes/sec
 
 # Infinity Noise TRNG schematics
 
-` `
+FTDI bitbang I/O controls the noise amplifier
 
 ![original, fit](infnoise-schematics.png)
 
@@ -189,20 +210,32 @@ Generating ~10kbytes/sec
 
 ---
 
-![original, fit](os-prng-flow-en.png)
+![right, fit](prng-hashing-en.png)
 
-# Randomness processing flow
+# Whitening for uniform distribution
 
-` `
+- Cryptographically strong hash functions are used in the whitening
+- Whitening is implemented in the driver or the post-processing software
+- 暗号化ハッシュ関数を適用して出力の分布を一様化する処理（ホワイトニング）が必要
+
 
 ---
 
-![right, fit](prng-hashing-en.png)
+# [fit] How whitening works on Infinity Noise TRNG
 
-# For using the external randomness safely
+` `
 
-- Whitening. a process of making the output uniformly dispersed to all the value range with a cryptographic hash function, is required; implemented in the driver or the post-processing software
-- 暗号化ハッシュ関数を適用して出力の分布を一様化する処理が必要
+![left, original, fit](infnoise-scatter-raw.png)
+![right, original, fit](infnoise-scatter-whitened.png)
+
+---
+
+# How much randomness is enough?
+
+- USD <100 generator: ~100kbytes/sec or more, more than sufficient for an active server
+- If you generate *a lot of* keys/passwords, consider dedicated generator of Mbps or Gbps class (they exist but expensive)
+- ハードウェア生成器があれば~100kバイト/秒（通常の運用には十分）
+- 本気で大量に鍵やパスワードを生成するなら専用の物理乱数生成器を導入すべし
 
 
 ---
@@ -211,23 +244,28 @@ Generating ~10kbytes/sec
 
 - Good randomness is hard to obtain
 - External physical random number generator is essential for secure operation
-- Do not invent your own methods; stick to the defacto standards
+- Do not invent your own methods
 - 良いランダムネスを得るのは難しい
 - 安全な運用には外部の物理乱数装置が不可欠
 - 自己流でやらない
 
 ---
 
-# [fit] Before finishing the talk:
-# [fit] Give the feedback please
-# [fit] Use the QR code on your name card
-# [fit] フィードバックをおねがいします
-# [fit] ネームカードのQRコードを使ってください
+# Other references
+
+- <https://github.com/jj1bdx/avrhwrng/>
+- [Fifteen Ways to Leave Your Random Module](https://speakerdeck.com/jj1bdx/fifteen-ways-to-leave-your-random-module) (Erlang User Conference 2016)
+- [疑似乱数の作り方・使い方 ゲームから情報セキュリティまで](https://speakerdeck.com/jj1bdx/jeita-20171026)
+
+
+
 
 ---
 
 # [fit] Thanks
 # [fit] Questions?
+# [fit] Give the feedback please; use the QR code on your name card
+# [fit] フィードバックをおねがいします / ネームカードのQRコードを使ってください
 
 
 <!--
