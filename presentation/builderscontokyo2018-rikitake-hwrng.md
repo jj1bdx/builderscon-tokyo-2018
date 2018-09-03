@@ -102,7 +102,9 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 
 # Why hardware?
 
+- Randomness is hard to find in a computer
 - Computers are *programmed* and *predictive* machines; finding randomness inside computers is *extremely difficult*
+- コンピュータの中にランダムネスを見つけるのは難しい
 - コンピュータはプログラムされた通りに、予想通りに動く→コンピュータの中でランダムネスを見つけるのは非常に難しい
 
 ---
@@ -113,8 +115,8 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 - Keyboard timing / キーボード打鍵のタイミング
 - Network packet timing / パケットのタイミング
 - Storage seeking timing / ストレージのタイミング
-- ... Those sources are highly predictive
-- … これらのソースは予測可能
+- ... Those sources do not give much randomness
+- … これらのソースから得られるランダムネスは少量
 
 ---
 
@@ -178,17 +180,13 @@ Generating ~10kbytes/sec
 ---
 ![fit,right](infinite-noise-crowdsupply.jpg)
 
-#[fit] Infinity Noise TRNG [^1][^2]
+#[fit] Infinity Noise TRNG
 
 - Thermal noise based
 - USD35/device
 - Public domain, no patent
 - No MCU on the device / デバイスはMCUを持たない
 - ~40Kbytes/sec
-
-[^1]: <https://github.com/13-37-org/infnoise>
-
-[^2]: [Crowd Supply product page of Infinity Noise TRNG](https://www.crowdsupply.com/13-37/infinite-noise-trng)
 
 ---
 
@@ -203,10 +201,8 @@ FTDI bitbang I/O controls the noise amplifier
 # How to inject external randomness to the operating systems
 
 - Linux: random(4) ioctl() of RNDGETENTCNT, RNDADDENTROPY (User accessible)
-- FreeBSD: random_harvest(9) (Accessible from kernel modules only) [^3]
+- FreeBSD: random_harvest(9) (Accessible from kernel modules only, device driver needed)
 - Other proprietary OSes: unable to find the same functions / その他の独自OSでは外部からランダムネスを注入できない
-
-[^3]: [My FreeBSD randomness injection device driver](https://github.com/jj1bdx/freebsd-dev-trng)
 
 ---
 
@@ -237,6 +233,17 @@ FTDI bitbang I/O controls the noise amplifier
 - ハードウェア生成器があれば~10kバイト/秒以上（通常の運用には十分）
 - 本気で大量に鍵やパスワードを生成するなら専用の物理乱数生成器を導入すべし
 
+---
+
+# Experimental systems in our office
+
+- FreeBSD 11 with Infinity Noise TRNG
+- <https://github.com/jj1bdx/infnoise-freebsd>
+- <https://github.com/jj1bdx/freebsd-dev-trng>
+- Ubuntu 18.04 with Infinity Noise TRNG
+- <https://github.com/jj1bdx/infnoise-linux>
+- Infinity Noise TRNG on Windows 10 also works
+- <https://github.com/jj1bdx/infnoise-windows>
 
 ---
 
@@ -255,6 +262,8 @@ FTDI bitbang I/O controls the noise amplifier
 
 - [Presentation slide repository](https://github.com/jj1bdx/builderscon-tokyo-2018/)
 - [Arduino UNO TRNG: avrhwrng](https://github.com/jj1bdx/avrhwrng/)
+- [Crowd Supply product page of Infinity Noise TRNG](https://www.crowdsupply.com/13-37/infinite-noise-trng)
+- [Infinity Noise TRNG](https://github.com/waywardgeek/infnoise) (with the schematics)
 - [Fifteen Ways to Leave Your Random Module](https://speakerdeck.com/jj1bdx/fifteen-ways-to-leave-your-random-module) (Erlang User Conference 2016)
 - [疑似乱数の作り方・使い方 ゲームから情報セキュリティまで](https://speakerdeck.com/jj1bdx/jeita-20171026)
 
