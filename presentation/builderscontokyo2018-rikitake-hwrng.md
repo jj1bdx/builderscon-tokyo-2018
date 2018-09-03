@@ -253,12 +253,21 @@ FTDI bitbang I/O controls the noise amplifier
 
 # Other references
 
-- <https://github.com/jj1bdx/avrhwrng/>
+- [Presentation slide repository](https://github.com/jj1bdx/builderscon-tokyo-2018/)
+- [Arduino UNO TRNG: avrhwrng](https://github.com/jj1bdx/avrhwrng/)
 - [Fifteen Ways to Leave Your Random Module](https://speakerdeck.com/jj1bdx/fifteen-ways-to-leave-your-random-module) (Erlang User Conference 2016)
 - [疑似乱数の作り方・使い方 ゲームから情報セキュリティまで](https://speakerdeck.com/jj1bdx/jeita-20171026)
 
 
+---
 
+![right, fit](pepaken_logo.jpg)
+
+# Acknowledgment
+
+This presentation is supported by Pepabo R&D Institute, GMO Pepabo, Inc.
+
+この講演はGMOペパボ株式会社ペパボ研究所のご支援で実現しました
 
 ---
 
